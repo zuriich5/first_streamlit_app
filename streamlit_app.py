@@ -16,11 +16,11 @@ my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.co
 # read_csv function reads our CSV file from that S3 bucket 
 # to pull the data into a dataframe we'll call my_fruit_list. 
 
+# We will ask the streamlit library to display it on the page by typing the code below:
+streamlit.dataframe(my_fruit_list)
+
 # To be able to choose the fruits by name and not just by number
 my_fruit_list = my_fruit_list.set_index('Fruit')
 
 # Let's put a pick list here so they can pick the fruit they want to include 
 streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index),['Avocado','Strawberry']) 
-
-# We will ask the streamlit library to display it on the page by typing the code below:
-streamlit.dataframe(my_fruit_list)
