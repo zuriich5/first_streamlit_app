@@ -102,13 +102,14 @@ def get_fruit_load_list():
         my_cur.execute("SELECT * FROM FRUIT_LOAD_LIST")
         return my_cur.fetchall()
 
-# Added button 
+# Added button to show fruit list
 if streamlit.button('Get Fruit List'):
 # To connect to the secrets settings in Streamlit using the snowflake credentials we added
     my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 
 # fetchone retrieves one output only, fetchall retrieves all data
     my_data_row = get_fruit_load_list()
+# Since we open a Snowflake Connection each time a button on the page is clicked, let's also close the connection
     my_cnx.close()
     streamlit.dataframe(my_data_row)
 
@@ -117,10 +118,13 @@ def insert_row_snowflake(new_fruit):
     with my_cnx.cursor() as my_cur:
         my_cur.execute("INSERT INTO FRUIT_LOAD_LIST VALUES ('" + add_my_fruit + "')")
         return 'Thank you for adding ' + new_fruit
-        
+
+# This is where we will input the fruit that we would like to add
 add_my_fruit = streamlit.text_input('What fruit would you like to add?')
 
+# Button to add fruit
 if streamlit.button('Add fruit'):
     my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
     back_from_function = insert_row_snowflake(add_my_fruit)
+    my_cnx.close()
     streamlit.text(back_from_function)
