@@ -93,7 +93,7 @@ except URLError as e:
 # streamlit.text("Hello from Snowflake:")
 # streamlit.text(my_data_row)
 
-streamlist.stop()
+# streamlist.stop() is used to stop executing code below this command
 
 streamlit.header("View our fruit list - Add your favorites!")
 def get_fruit_load_list():
