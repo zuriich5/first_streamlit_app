@@ -37,51 +37,57 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 # Display the table on the page.
 # streamlit.dataframe(my_fruit_list) , updating the command to the below code to make use of the function
 streamlit.dataframe(fruits_to_show)
+streamlit.stop()
+
+# ----------------------------------Created function
+
+def get_fruityvice_data(this_fruit_choice)
+# Added fruit_choice function that we created to get data from user input
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ this_fruit_choice)
+
+# Using pandas library to read the json file 
+    fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+
+# Added dataframe function to display it as a table, UPDATED: used return function
+    return fruityvice_normalized
 
 # New section to display Fruityvice API response
 streamlit.header("Fruityvice Fruit Advice!")
 
+# Added try catch error, if else and function
 try:
+  
 # Added text_input function to generate text box
 # Added write function to enable input
   fruit_choice = streamlit.text_input('What fruit would you like information about?')
 
   if not fruit_choice:
     streamlit.error('Please select a fruit to get information ')
-
   else:
-# Added fruit_choice function that we created to get data from user input
-    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
-
-# Using pandas library to read the json file 
-    fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-
-# Added dataframe function to display it as a table
-    streamlit.dataframe(fruityvice_normalized)
-
+    back_from_function = get_fruityvice_data(fruit_choice)
+    streamlit.dataframe(back_from_function)
+    streamlit.stop()
+    
 except URLError as e:
   streamlit.error()
-
+  streamlit.stop()
 # streamlit.write('The user entered ', fruit_choice)
 
-# ----------------------------------------------# Import requests library. Used for making HTTP requests/calls
+# ----------------------------------------------Import requests library. Used for making HTTP requests/calls
 
 # Used the HTTP request GET command
-# --------# fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+# fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
 
 # Specified which fruit to get
-# --------# fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+"kiwi")
-
+# fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+"kiwi")
 
 # Just writes the data on the screen
-# --------# streamlit.text(fruityvice_response.json())
+# streamlit.text(fruityvice_response.json())
 
 # Just shows the HTTP response type
-# --------# streamlit.text(fruityvice_response)
+# streamlit.text(fruityvice_response)
 
-
-
-# ----------------------------------------------# import snowflake.connector will tell your app to bring in some code from the snowflake library you added (snowflake-connector-python)
+# ---------------------------------------------- import snowflake.connector will tell your app to bring in some code from the snowflake library you added (snowflake-connector-python)
 
 # my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 # my_cur = my_cnx.cursor()
