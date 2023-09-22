@@ -97,8 +97,7 @@ streamlist.stop()
 
 streamlit.header("View our fruit list - Add your favorites!")
 def get_fruit_load_list():
-    with 
-        my_cnx.cursor() as my_cur:
+    with my_cnx.cursor() as my_cur:
     # To execute SQL command
         my_cur.execute("SELECT * FROM FRUIT_LOAD_LIST")
         return my_cur.fetchall()
