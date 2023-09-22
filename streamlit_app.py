@@ -49,7 +49,7 @@ try:
   if not fruit_choice:
     streamlit.error('Please select a fruit to get information ')
 
-  else
+  else:
 # Added fruit_choice function that we created to get data from user input
     fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
 
