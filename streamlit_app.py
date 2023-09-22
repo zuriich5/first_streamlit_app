@@ -48,7 +48,7 @@ fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon"
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+"kiwi")
 
 # Added fruit_choice function that we created to get data from user input
-fruityvice_response = request.get("https://fruityvice.com/api/fruit/"+fruit_choice)
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
 
 # Just writes the data on the screen
 streamlit.text(fruityvice_response.json())
