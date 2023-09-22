@@ -41,10 +41,28 @@ streamlit.dataframe(fruits_to_show)
 # New section to display Fruityvice API response
 streamlit.header("Fruityvice Fruit Advice!")
 
+try:
 # Added text_input function to generate text box
 # Added write function to enable input
-fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
-streamlit.write('The user entered ', fruit_choice)
+  fruit_choice = streamlit.text_input('What fruit would you like information about?')
+
+if not fruit_choice:
+  streamlit.error('Please select a fruit to get information ')
+
+else
+# Added fruit_choice function that we created to get data from user input
+  fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
+
+# Using pandas library to read the json file 
+  fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+
+# Added dataframe function to display it as a table
+  streamlit.dataframe(fruityvice_normalized)
+
+except URLError as e:
+  streamlit.error()
+
+# streamlit.write('The user entered ', fruit_choice)
 
 # ----------------------------------------------# Import requests library. Used for making HTTP requests/calls
 
@@ -54,8 +72,6 @@ streamlit.write('The user entered ', fruit_choice)
 # Specified which fruit to get
 # --------# fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+"kiwi")
 
-# Added fruit_choice function that we created to get data from user input
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
 
 # Just writes the data on the screen
 # --------# streamlit.text(fruityvice_response.json())
@@ -63,11 +79,7 @@ fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_ch
 # Just shows the HTTP response type
 # --------# streamlit.text(fruityvice_response)
 
-# Using pandas library to read the json file 
-fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 
-# Added dataframe function to display it as a table
-streamlit.dataframe(fruityvice_normalized)
 
 # ----------------------------------------------# import snowflake.connector will tell your app to bring in some code from the snowflake library you added (snowflake-connector-python)
 
