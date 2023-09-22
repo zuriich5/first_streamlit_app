@@ -72,9 +72,14 @@ import snowflake.connector
 # streamlit.text("Hello from Snowflake:")
 # streamlit.text(my_data_row)
 
+# To connect to the secrets settings in Streamlit using the snowflake credentials we added
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
+
+# To execute SQL command
 my_cur.execute("SELECT * FROM FRUIT_LOAD_LIST")
-my_data_row = my_cur.fetcone()
+
+# fetchone retrieves one output only, fetchall retrieves all data
+my_data_row = my_cur.fetchall()
 streamlit.header("The fruit load list contains: ")
 streamlit.dataframe(my_data_row)
