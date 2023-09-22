@@ -41,7 +41,7 @@ streamlit.stop()
 
 # ----------------------------------Created function
 
-def get_fruityvice_data(this_fruit_choice)
+def get_fruityvice_data(this_fruit_choice):
 # Added fruit_choice function that we created to get data from user input
     fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ this_fruit_choice)
 
