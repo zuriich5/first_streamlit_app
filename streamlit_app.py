@@ -40,7 +40,7 @@ import requests
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
 
 # Specified which fruit to get
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon"+"kiwi")
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+"kiwi")
 
 # Just writes the data on the screen
 streamlit.text(fruityvice_response.json())
