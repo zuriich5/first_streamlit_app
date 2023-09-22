@@ -61,3 +61,6 @@ fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 
 # Added dataframe function to display it as a table
 streamlit.dataframe(fruityvice_normalized)
+
+# The line shown below will tell your app to bring in some code from the snowflake library you added (snowflake-connector-python)
+import snowflake.connector
