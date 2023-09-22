@@ -1,4 +1,13 @@
-import streamlit # Import streamlit library
+# Import streamlit library
+import streamlit
+# Import pandas library 
+import pandas 
+# Import requests library. Used for making HTTP requests/calls
+import requests
+# The line shown below will tell your app to bring in some code from the snowflake library you added (snowflake-connector-python)
+import snowflake.connector
+# Library for error handling
+from urllib.error import URLError
 
 streamlit.title ('Hello World!')
 streamlit.header('Breakfast Favorites')
@@ -9,12 +18,11 @@ streamlit.text(' 🥑🍞 Avocado toast')
 
 streamlit.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇')
 
-# Import pandas library 
-import pandas 
-my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
+----------------------------------------------# Import pandas library 
 
 # read_csv function reads our CSV file from that S3 bucket 
 # to pull the data into a dataframe we'll call my_fruit_list. 
+my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
 
 # To be able to pick the fruits instead of just numbers
 my_fruit_list = my_fruit_list.set_index('Fruit')
@@ -38,23 +46,22 @@ streamlit.header("Fruityvice Fruit Advice!")
 fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
 streamlit.write('The user entered ', fruit_choice)
 
-# Import requests library. Used for making HTTP requests/calls
-import requests
+----------------------------------------------# Import requests library. Used for making HTTP requests/calls
 
 # Used the HTTP request GET command
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+--------# fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
 
 # Specified which fruit to get
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+"kiwi")
+--------# fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+"kiwi")
 
 # Added fruit_choice function that we created to get data from user input
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
 
 # Just writes the data on the screen
-streamlit.text(fruityvice_response.json())
+--------# streamlit.text(fruityvice_response.json())
 
 # Just shows the HTTP response type
-streamlit.text(fruityvice_response)
+--------# streamlit.text(fruityvice_response)
 
 # Using pandas library to read the json file 
 fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
@@ -62,8 +69,7 @@ fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # Added dataframe function to display it as a table
 streamlit.dataframe(fruityvice_normalized)
 
-# The line shown below will tell your app to bring in some code from the snowflake library you added (snowflake-connector-python)
-import snowflake.connector
+----------------------------------------------# import snowflake.connector will tell your app to bring in some code from the snowflake library you added (snowflake-connector-python)
 
 # my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 # my_cur = my_cnx.cursor()
