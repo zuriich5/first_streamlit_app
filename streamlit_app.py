@@ -33,11 +33,20 @@ streamlit.dataframe(fruits_to_show)
 # New section to display Fruityvice API response
 streamlit.header("Fruityvice Fruit Advice!")
 
-# Import requests library
+# Import requests library. Used for making HTTP requests/calls
 import requests
+
+# Used the HTTP request GET command
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-streamlit.text(fruityvice_response.json()) # Just writes the data on the screen
-streamlit.text(fruityvice_response) # Just shows the HTTP response type
+
+# Specified which fruit to get
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon"+"kiwi")
+
+# Just writes the data on the screen
+streamlit.text(fruityvice_response.json())
+
+# Just shows the HTTP response type
+streamlit.text(fruityvice_response)
 
 # Using pandas library to read the json file 
 fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
